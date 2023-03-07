@@ -46,4 +46,17 @@ public class TaskService {
 
         this.repository.markTaskAsFinished(id);
     }
+
+
+    public void deleteById(Long id){
+        Optional<Task> optionalTask = this.repository.findById(id);
+
+        if(optionalTask.isEmpty()){
+            throw new TodoExceptions("Task not found.", HttpStatus.NOT_FOUND);
+        }
+
+        this.repository.deleteById(id);
+    }
+
+
 }
