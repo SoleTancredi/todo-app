@@ -4,8 +4,10 @@ import com.project.todoapp.persistence.entity.Task;
 import com.project.todoapp.persistence.entity.TaskStatus;
 import com.project.todoapp.service.TaskService;
 import com.project.todoapp.service.dto.TaskInDTO;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.http.HttpResponse;
 import java.util.List;
 
 @RestController
@@ -26,6 +28,11 @@ public class TaskController {
     @GetMapping("/status/{status}")
     public List<Task> findAllByStatus(@PathVariable("status")TaskStatus status){
         return this.taskService.findAllByTaskStatus(status);
+    }
+    @PatchMapping("/updateFinished/{id}")
+    public ResponseEntity<Void> updateFinished(@PathVariable("id") Long id){
+        this.taskService.updateTaskFinished(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
